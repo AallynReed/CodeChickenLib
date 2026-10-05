@@ -33,7 +33,7 @@ public class SimpleBrightnessModel implements IVertexOperation {
     public int sample(int side) {
         requireNonNull(access, "SimpleBrightnessModel must be located first.");
         if ((sampled & 1 << side) == 0) {
-            samples[side] = LevelRenderer.getLightColor(access, pos.relative(Direction.BY_3D_DATA[side]));
+            samples[side] = LevelRenderer.getLightCoords(access, pos.relative(Direction.BY_3D_DATA[side]));
             sampled |= 1 << side;
         }
         return samples[side];

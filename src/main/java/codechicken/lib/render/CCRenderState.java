@@ -278,7 +278,7 @@ public class CCRenderState {
     }
 
     public void setBrightness(BlockAndTintGetter world, BlockPos pos) {
-        brightness = LevelRenderer.getLightColor(world, pos);
+        brightness = LevelRenderer.getLightCoords(world, pos);
     }
 
     public void setBrightness(Entity entity, float frameDelta) {
