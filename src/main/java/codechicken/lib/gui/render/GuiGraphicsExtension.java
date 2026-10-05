@@ -380,7 +380,7 @@ public interface GuiGraphicsExtension {
     }
 
     default void cc$drawString(Font font, FormattedCharSequence text, double x, double y, int color, boolean drawShadow) {
-        self().text(font, text, (int) x, (int) y, color, drawShadow);
+        self().text(font, text, (int) x, (int) y, (color & 0xFC000000) == 0 ? color | 0xFF000000 : color, drawShadow);
     }
 
     default void cc$drawScrollingString(Font font, Component text, double x, double y, double maxX, int color, boolean shadow, boolean scissor) {
