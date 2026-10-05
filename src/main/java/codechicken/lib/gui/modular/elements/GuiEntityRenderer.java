@@ -161,7 +161,7 @@ public class GuiEntityRenderer extends GuiElement<GuiEntityRenderer> implements 
                 if (entity instanceof LivingEntity living) {
                     int eyeOffset = (int) ((entity.getEyeHeight()) * scale);
                     if (trackMouse.get()) {
-                        InventoryScreen.renderEntityInInventoryFollowsMouse(
+                        InventoryScreen.extractEntityInInventoryFollowsMouse(
                                 graphics,
                                 (int) rect.x(), (int) rect.y(),
                                 (int) rect.xMax(), (int) rect.yMax(),
@@ -173,7 +173,7 @@ public class GuiEntityRenderer extends GuiElement<GuiEntityRenderer> implements 
                         );
                     } else {
                         // TODO always tracks mouse for now, need math
-                        InventoryScreen.renderEntityInInventoryFollowsMouse(
+                        InventoryScreen.extractEntityInInventoryFollowsMouse(
                                 graphics,
                                 (int) rect.x(), (int) rect.y(),
                                 (int) rect.xMax(), (int) rect.yMax(),

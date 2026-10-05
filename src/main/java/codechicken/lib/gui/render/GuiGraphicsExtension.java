@@ -380,7 +380,7 @@ public interface GuiGraphicsExtension {
     }
 
     default void cc$drawString(Font font, FormattedCharSequence text, double x, double y, int color, boolean drawShadow) {
-        self().drawString(font, text, (int) x, (int) y, color, drawShadow);
+        self().text(font, text, (int) x, (int) y, color, drawShadow);
     }
 
     default void cc$drawScrollingString(Font font, Component text, double x, double y, double maxX, int color, boolean shadow, boolean scissor) {
@@ -421,14 +421,14 @@ public interface GuiGraphicsExtension {
     }
 
     default void cc$renderItem(ItemStack stack, double x, double y, int rand) {
-        self().renderItem(stack, (int) x, (int) y, rand);
+        self().item(stack, (int) x, (int) y, rand);
     }
 
     default void cc$renderItem(@Nullable LivingEntity entity, ItemStack stack, double x, double y, int rand) {
         if (entity == null) {
-            self().renderItem(stack, (int) x, (int) y, rand);
+            self().item(stack, (int) x, (int) y, rand);
         } else {
-            self().renderItem(entity, stack, (int) x, (int) y, rand);
+            self().item(entity, stack, (int) x, (int) y, rand);
         }
     }
 
@@ -437,6 +437,6 @@ public interface GuiGraphicsExtension {
     }
 
     default void cc$renderItemDecorations(Font font, ItemStack stack, double x, double y, @Nullable String text) {
-        self().renderItemDecorations(font, stack, (int) x, (int) y, text);
+        self().itemDecorations(font, stack, (int) x, (int) y, text);
     }
 }
