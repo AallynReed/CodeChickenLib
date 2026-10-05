@@ -345,18 +345,24 @@ public class GuiSlots extends GuiElement<GuiSlots> implements BackgroundRender {
 
         for (int index = 0; index < slotCount; index++) {
             Slot slot = slots.getSlot(index + firstSlot);
-            slotTexture.apply(slot).ifPresent(icon -> {
-                render.cc$blitSprite(RenderPipelines.GUI_TEXTURED, icon, slot.x + root.xMin() - 1, slot.y + root.yMin() - 1, 18, 18);
-            });
+            SpriteSupplier tex = slotTexture.apply(slot);
+            if (tex != null) {
+                tex.ifPresent(icon -> {
+                    render.cc$blitSprite(RenderPipelines.GUI_TEXTURED, icon, slot.x + root.xMin() - 1, slot.y + root.yMin() - 1, 18, 18);
+                });
+            }
         }
 
         for (int index = 0; index < slotCount; index++) {
             Slot slot = slots.getSlot(index + firstSlot);
             if (!slot.isActive()) continue;
             if (!slot.hasItem()) {
-                slotIcons.apply(slot).ifPresent(icon -> {
-                    render.cc$blitSprite(RenderPipelines.GUI_TEXTURED, icon, slot.x + root.xMin(), slot.y + root.yMin(), 16, 16);
-                });
+                SpriteSupplier icons = slotIcons.apply(slot);
+                if (icons != null) {
+                    icons.ifPresent(icon -> {
+                        render.cc$blitSprite(RenderPipelines.GUI_TEXTURED, icon, slot.x + root.xMin(), slot.y + root.yMin(), 16, 16);
+                    });
+                }
             }
 
             screenAccess.doRenderSlot(render, slot);
