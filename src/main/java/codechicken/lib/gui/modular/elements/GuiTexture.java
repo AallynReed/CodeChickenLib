@@ -1,9 +1,10 @@
 package codechicken.lib.gui.modular.elements;
 
+import codechicken.lib.gui.modular.SpriteSupplier;
 import codechicken.lib.gui.modular.lib.BackgroundRender;
 import codechicken.lib.gui.modular.lib.geometry.Borders;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
-import codechicken.lib.gui.modular.SpriteSupplier;
+import codechicken.lib.gui.modular.sprite.Material;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import org.jetbrains.annotations.Nullable;
@@ -29,9 +30,21 @@ public class GuiTexture extends GuiElement<GuiTexture> implements BackgroundRend
         setMaterial(spriteSupplier);
     }
 
+    public GuiTexture(GuiParent<?> parent, Supplier<Material> supplier) {
+        this(parent);
+        setMaterial(supplier);
+    }
+
     public GuiTexture setMaterial(SpriteSupplier spriteSupplier) {
         this.spriteSupplier = spriteSupplier;
         return this;
+    }
+
+    public GuiTexture setMaterial(Supplier<Material> supplier) {
+        return setMaterial(() -> {
+            Material material = supplier.get();
+            return material == null ? null : material.sprite();
+        });
     }
 
     public SpriteSupplier getSprite() {

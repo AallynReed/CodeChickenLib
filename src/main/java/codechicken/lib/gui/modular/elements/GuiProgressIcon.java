@@ -1,10 +1,11 @@
 package codechicken.lib.gui.modular.elements;
 
+import codechicken.lib.gui.modular.SpriteSupplier;
 import codechicken.lib.gui.modular.lib.BackgroundRender;
 import codechicken.lib.gui.modular.lib.geometry.Axis;
 import codechicken.lib.gui.modular.lib.geometry.Direction;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
-import codechicken.lib.gui.modular.SpriteSupplier;
+import codechicken.lib.gui.modular.sprite.Material;
 import codechicken.lib.math.MathHelper;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -65,6 +66,31 @@ public class GuiProgressIcon extends GuiElement<GuiProgressIcon> implements Back
     /**
      * Sets the background texture, aka the "empty" texture.
      */
+    public GuiProgressIcon(GuiParent<?> parent, Supplier<Material> animated) {
+        this(parent);
+        setAnimated(animated);
+    }
+
+    public GuiProgressIcon(GuiParent<?> parent, Supplier<Material> background, Supplier<Material> animated) {
+        this(parent);
+        setBackground(background);
+        setAnimated(animated);
+    }
+
+    public GuiProgressIcon setBackground(Supplier<Material> background) {
+        return setBackground(() -> {
+            Material material = background.get();
+            return material == null ? null : material.sprite();
+        });
+    }
+
+    public GuiProgressIcon setAnimated(Supplier<Material> animated) {
+        return setAnimated(() -> {
+            Material material = animated.get();
+            return material == null ? null : material.sprite();
+        });
+    }
+
     public GuiProgressIcon setBackground(SpriteSupplier background) {
         this.background = background;
         return this;

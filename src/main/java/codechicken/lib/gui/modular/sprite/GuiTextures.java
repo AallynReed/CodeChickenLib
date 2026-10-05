@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import static codechicken.lib.CodeChickenLib.MOD_ID;
 import static java.util.Objects.requireNonNull;
 
 /**
