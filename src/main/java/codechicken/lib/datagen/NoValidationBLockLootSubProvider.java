@@ -5,6 +5,7 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.HashMap;
@@ -32,8 +33,13 @@ public abstract class NoValidationBLockLootSubProvider extends BlockLootSubProvi
     }
 
     protected NoValidationBLockLootSubProvider(Set<Item> explosionResistant, FeatureFlagSet flags, Map<ResourceKey<LootTable>, LootTable.Builder> map, HolderLookup.Provider registries) {
-        super(explosionResistant, flags, map, registries);
+        super(explosionResistant, flags, registries);
         this.map = map;
+    }
+
+    @Override
+    protected void add(Block block, LootTable.Builder builder) {
+        map.put(block.getLootTable().orElseThrow(() -> new IllegalStateException("Block " + block + " does not have loot table")), builder);
     }
 
     @Override
