@@ -1,6 +1,8 @@
 package codechicken.lib.render;
 
+import com.mojang.blaze3d.pipeline.DepthStencilState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.blaze3d.platform.CompareOp;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -20,13 +22,13 @@ public class CCRenderPipelines {
 
     public static final RenderPipeline POSITION_COLOR = RenderPipeline.builder(RenderPipelines.DEBUG_FILLED_SNIPPET)
             .withVertexFormat(DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS)
-            .withDepthWrite(true) // Overwritten from DEBUG_FILLED_SNIPPET as we very much want depth here.
+            .withDepthStencilState(DepthStencilState.DEFAULT) // Overwritten from DEBUG_FILLED_SNIPPET as we very much want depth here.
             .withLocation(Identifier.fromNamespaceAndPath(MOD_ID, "pipeline/position_color"))
             .build();
 
     public static final RenderPipeline POSITION_COLOR_NO_DEPTH = RenderPipeline.builder(RenderPipelines.DEBUG_FILLED_SNIPPET)
             .withVertexFormat(DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS)
-            .withDepthWrite(false)
+            .withDepthStencilState(new DepthStencilState(CompareOp.LESS_THAN_OR_EQUAL, false))
             .withLocation(Identifier.fromNamespaceAndPath(MOD_ID, "pipeline/position_color_no_depth"))
             .build();
 }
