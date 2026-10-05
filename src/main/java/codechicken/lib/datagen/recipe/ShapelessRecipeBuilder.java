@@ -7,7 +7,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
@@ -150,15 +152,15 @@ public class ShapelessRecipeBuilder extends AbstractItemStackRecipeBuilder<Shape
     @Override
     public Recipe<?> _build() {
         return factory.build(
-                group,
-                category,
-                result,
+                new Recipe.CommonInfo(true),
+                new CraftingRecipe.CraftingBookInfo(category, group),
+                ItemStackTemplate.fromNonEmptyStack(result),
                 ingredients
         );
     }
 
     public interface Factory {
 
-        Recipe<?> build(String group, CraftingBookCategory category, ItemStack result, NonNullList<Ingredient> ingredients);
+        Recipe<?> build(Recipe.CommonInfo commonInfo, CraftingRecipe.CraftingBookInfo bookInfo, ItemStackTemplate result, NonNullList<Ingredient> ingredients);
     }
 }

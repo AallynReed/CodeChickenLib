@@ -10,6 +10,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import org.apache.logging.log4j.LogManager;
@@ -146,11 +147,10 @@ public class ShapedRecipeBuilder extends AbstractItemStackRecipeBuilder<ShapedRe
     @Override
     public Recipe<?> _build() {
         return factory.build(
-                group,
-                category,
+                new Recipe.CommonInfo(showNotification),
+                new CraftingRecipe.CraftingBookInfo(category, group),
                 ShapedRecipePattern.of(keys, patternLines),
-                result,
-                showNotification
+                ItemStackTemplate.fromNonEmptyStack(result)
         );
     }
 
@@ -184,6 +184,6 @@ public class ShapedRecipeBuilder extends AbstractItemStackRecipeBuilder<ShapedRe
 
     public interface Factory {
 
-        Recipe<?> build(String group, CraftingBookCategory category, ShapedRecipePattern pattern, ItemStack result, boolean showNotification);
+        Recipe<?> build(Recipe.CommonInfo commonInfo, CraftingRecipe.CraftingBookInfo bookInfo, ShapedRecipePattern pattern, ItemStackTemplate result);
     }
 }

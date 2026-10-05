@@ -6,6 +6,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import org.apache.logging.log4j.LogManager;
@@ -252,7 +253,7 @@ public class FurnaceRecipeBuilder extends AbstractItemStackRecipeBuilder<Furnace
 
     @Override
     public Recipe<?> _build() {
-        return factory.build(group, category, requireNonNull(ingredient), result, experience, cookingTime);
+        return factory.build(new Recipe.CommonInfo(true), new AbstractCookingRecipe.CookingBookInfo(category, group), requireNonNull(ingredient), ItemStackTemplate.fromNonEmptyStack(result), experience, cookingTime);
     }
 
     @Override
@@ -265,6 +266,6 @@ public class FurnaceRecipeBuilder extends AbstractItemStackRecipeBuilder<Furnace
 
     public interface Factory {
 
-        Recipe<?> build(String group, CookingBookCategory category, Ingredient ingredient, ItemStack result, float experience, int cookingTime);
+        Recipe<?> build(Recipe.CommonInfo commonInfo, AbstractCookingRecipe.CookingBookInfo bookInfo, Ingredient ingredient, ItemStackTemplate result, float experience, int cookingTime);
     }
 }
