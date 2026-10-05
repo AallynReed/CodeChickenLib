@@ -320,7 +320,7 @@ public interface GuiGraphicsExtension {
         );
     }
 
-    private void cc$submitCustom(RenderPipeline pipeline, TextureSetup texture, double x0, double x1, double y0, double y1, CCCustomRenderState.VertBuilder builder) {
+    default void cc$submitCustom(RenderPipeline pipeline, TextureSetup texture, double x0, double x1, double y0, double y1, CCCustomRenderState.VertBuilder builder) {
         var pose = self().pose();
         var scissor = self().peekScissorStack();
         var bounds = BlitRenderState.getBounds((int) x0, (int) y0, (int) x1, (int) y1, pose, scissor);
