@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  */
 public class ModAtlasHolder implements PreparableReloadListener, AutoCloseable {
 
-    private final TextureAtlas textureAtlas;
+    private TextureAtlas textureAtlas;
     private final Identifier atlasLocation;
     private final Identifier atlasInfoLocation;
     private final String modid;
@@ -41,11 +41,11 @@ public class ModAtlasHolder implements PreparableReloadListener, AutoCloseable {
     public ModAtlasHolder(String modid, String atlasLocation, String atlasInfoLocation) {
         this.atlasInfoLocation = Identifier.fromNamespaceAndPath(modid, atlasInfoLocation);
         this.atlasLocation = Identifier.fromNamespaceAndPath(modid, atlasLocation);
-        this.textureAtlas = new TextureAtlas(this.atlasLocation);
         this.modid = modid;
     }
 
     public void init() {
+        this.textureAtlas = new TextureAtlas(this.atlasLocation);
         Minecraft.getInstance().getTextureManager().register(this.textureAtlas.location(), this.textureAtlas);
     }
 
