@@ -7,14 +7,14 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.client.ClientHooks;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.fluid.FluidTintSource;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 
@@ -43,9 +43,10 @@ public class RenderUtils {
         } else {
             bound.max.y = bound.min.y + (bound.max.y - bound.min.y) * capacity;
         }
-        IClientFluidTypeExtensions props = IClientFluidTypeExtensions.of(type);
-        TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasManager().get(ClientHooks.getBlockMaterial(props.getStillTexture(stack)));
-        ccrs.baseColour = props.getTintColor(stack) << 8 | alpha;
+        FluidModel model = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(stack.getFluid().defaultFluidState());
+        TextureAtlasSprite sprite = model.stillMaterial().sprite();
+        FluidTintSource tint = model.fluidTintSource();
+        ccrs.baseColour = (tint != null ? tint.colorAsStack(stack) : -1) << 8 | alpha;
         makeFluidModel(bound, sprite, res).render(ccrs, mat);
     }
 

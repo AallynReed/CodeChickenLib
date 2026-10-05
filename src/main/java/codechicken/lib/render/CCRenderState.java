@@ -26,7 +26,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.fluid.FluidTintSource;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -290,7 +290,8 @@ public class CCRenderState {
     }
 
     public void setFluidColour(FluidStack fluidStack, int alpha) {
-        this.baseColour = IClientFluidTypeExtensions.of(fluidStack.getFluid()).getTintColor(fluidStack) << 8 | alpha;
+        FluidTintSource tint = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(fluidStack.getFluid().defaultFluidState()).fluidTintSource();
+        this.baseColour = (tint != null ? tint.colorAsStack(fluidStack) : -1) << 8 | alpha;
     }
 
     public void setColour(Colour colour) {
