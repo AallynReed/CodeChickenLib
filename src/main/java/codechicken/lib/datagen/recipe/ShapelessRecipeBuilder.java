@@ -6,7 +6,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -31,7 +30,7 @@ public class ShapelessRecipeBuilder extends AbstractItemStackRecipeBuilder<Shape
 
     private CraftingBookCategory category = CraftingBookCategory.MISC;
 
-    protected ShapelessRecipeBuilder(Identifier id, HolderGetter<Item> items, ItemStack result, Factory factory) {
+    protected ShapelessRecipeBuilder(Identifier id, HolderGetter<Item> items, ItemStackTemplate result, Factory factory) {
         super(id, items, result);
         this.factory = factory;
     }
@@ -41,11 +40,11 @@ public class ShapelessRecipeBuilder extends AbstractItemStackRecipeBuilder<Shape
     }
 
     public static ShapelessRecipeBuilder builder(HolderGetter<Item> items, ItemLike result, int count) {
-        return builder(items, new ItemStack(result, count));
+        return builder(items, new ItemStackTemplate(result.asItem(), count));
     }
 
     public static ShapelessRecipeBuilder builder(HolderGetter<Item> items, ItemLike result, int count, Identifier id) {
-        return builder(items, new ItemStack(result, count), id);
+        return builder(items, new ItemStackTemplate(result.asItem(), count), id);
     }
 
     public static ShapelessRecipeBuilder builder(HolderGetter<Item> items, Supplier<? extends ItemLike> result) {
@@ -53,18 +52,18 @@ public class ShapelessRecipeBuilder extends AbstractItemStackRecipeBuilder<Shape
     }
 
     public static ShapelessRecipeBuilder builder(HolderGetter<Item> items, Supplier<? extends ItemLike> result, int count) {
-        return builder(items, new ItemStack(result.get(), count));
+        return builder(items, new ItemStackTemplate(result.get().asItem(), count));
     }
 
     public static ShapelessRecipeBuilder builder(HolderGetter<Item> items, Supplier<? extends ItemLike> result, int count, Identifier id) {
-        return builder(items, new ItemStack(result.get(), count), id);
+        return builder(items, new ItemStackTemplate(result.get().asItem(), count), id);
     }
 
-    public static ShapelessRecipeBuilder builder(HolderGetter<Item> items, ItemStack result) {
-        return builder(items, result, BuiltInRegistries.ITEM.getKey(result.getItem()));
+    public static ShapelessRecipeBuilder builder(HolderGetter<Item> items, ItemStackTemplate result) {
+        return builder(items, result, BuiltInRegistries.ITEM.getKey(result.item().value()));
     }
 
-    public static ShapelessRecipeBuilder builder(HolderGetter<Item> items, ItemStack result, Identifier id) {
+    public static ShapelessRecipeBuilder builder(HolderGetter<Item> items, ItemStackTemplate result, Identifier id) {
         return new ShapelessRecipeBuilder(id, items, result, ShapelessRecipe::new);
     }
 
@@ -74,18 +73,18 @@ public class ShapelessRecipeBuilder extends AbstractItemStackRecipeBuilder<Shape
     }
 
     public static ShapelessRecipeBuilder custom(HolderGetter<Item> items, ItemLike result, int count, Factory factory) {
-        return custom(items, new ItemStack(result, count), factory);
+        return custom(items, new ItemStackTemplate(result.asItem(), count), factory);
     }
 
     public static ShapelessRecipeBuilder custom(HolderGetter<Item> items, ItemLike result, int count, Identifier id, Factory factory) {
-        return custom(items, new ItemStack(result, count), id, factory);
+        return custom(items, new ItemStackTemplate(result.asItem(), count), id, factory);
     }
 
-    public static ShapelessRecipeBuilder custom(HolderGetter<Item> items, ItemStack result, Factory factory) {
-        return custom(items, result, BuiltInRegistries.ITEM.getKey(result.getItem()), factory);
+    public static ShapelessRecipeBuilder custom(HolderGetter<Item> items, ItemStackTemplate result, Factory factory) {
+        return custom(items, result, BuiltInRegistries.ITEM.getKey(result.item().value()), factory);
     }
 
-    public static ShapelessRecipeBuilder custom(HolderGetter<Item> items, ItemStack result, Identifier id, Factory factory) {
+    public static ShapelessRecipeBuilder custom(HolderGetter<Item> items, ItemStackTemplate result, Identifier id, Factory factory) {
         return new ShapelessRecipeBuilder(id, items, result, factory);
     }
     // endregion
@@ -154,7 +153,7 @@ public class ShapelessRecipeBuilder extends AbstractItemStackRecipeBuilder<Shape
         return factory.build(
                 new Recipe.CommonInfo(true),
                 new CraftingRecipe.CraftingBookInfo(category, group),
-                ItemStackTemplate.fromNonEmptyStack(result),
+                result,
                 ingredients
         );
     }
