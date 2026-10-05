@@ -3,11 +3,14 @@ package codechicken.lib.gui.modular.lib;
 import codechicken.lib.gui.modular.lib.geometry.Borders;
 import codechicken.lib.gui.modular.lib.geometry.Rectangle;
 import codechicken.lib.gui.modular.sprite.Material;
+import codechicken.lib.gui.render.CCCustomRenderState;
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.locale.Language;
@@ -110,6 +113,14 @@ public class GuiRender {
         graphics.pose().mul(new Matrix3x2f(m.m00(), m.m01(), m.m10(), m.m11(), m.m30(), m.m31()));
         draw.run();
         graphics.pose().popMatrix();
+    }
+
+    /**
+     * Submits custom geometry, transformed by {@link #pose()}. This replaces drawing into {@code buffers()},
+     * which 26.1 GUIs no longer have.
+     */
+    public void submitCustom(RenderPipeline pipeline, TextureSetup texture, double x0, double x1, double y0, double y1, CCCustomRenderState.VertBuilder builder) {
+        draw(() -> graphics.cc$submitCustom(pipeline, texture, x0, x1, y0, y1, builder));
     }
 
     //=== Un-Textured geometry ===//
