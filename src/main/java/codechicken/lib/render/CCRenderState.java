@@ -260,19 +260,20 @@ public class CCRenderState {
         }
         List<VertexFormatElement> elements = fmt.getElements();
         for (VertexFormatElement fmte : elements) {
-            switch (fmte.usage()) {
-                case POSITION -> r.addVertex((float) vert.vec.x, (float) vert.vec.y, (float) vert.vec.z);
-                case UV -> {
-                    switch (fmte.index()) {
-                        case 0 -> r.setUv((float) vert.uv.u, (float) vert.uv.v);
-                        case 1 -> r.setOverlay(overlay);
-                        case 2 -> r.setLight(brightness);
-                        default -> throw new UnsupportedOperationException("Unknown UV index. " + fmte.index());
-                    }
-                }
-                case COLOR -> r.setColor(colour >>> 24, colour >> 16 & 0xFF, colour >> 8 & 0xFF, alphaOverride >= 0 ? alphaOverride : colour & 0xFF);
-                case NORMAL -> r.setNormal((float) normal.x, (float) normal.y, (float) normal.z);
-                default -> throw new UnsupportedOperationException("Generic vertex format element");
+            if (fmte == VertexFormatElement.POSITION) {
+                r.addVertex((float) vert.vec.x, (float) vert.vec.y, (float) vert.vec.z);
+            } else if (fmte == VertexFormatElement.UV0) {
+                r.setUv((float) vert.uv.u, (float) vert.uv.v);
+            } else if (fmte == VertexFormatElement.UV1) {
+                r.setOverlay(overlay);
+            } else if (fmte == VertexFormatElement.UV2) {
+                r.setLight(brightness);
+            } else if (fmte == VertexFormatElement.COLOR) {
+                r.setColor(colour >>> 24, colour >> 16 & 0xFF, colour >> 8 & 0xFF, alphaOverride >= 0 ? alphaOverride : colour & 0xFF);
+            } else if (fmte == VertexFormatElement.NORMAL) {
+                r.setNormal((float) normal.x, (float) normal.y, (float) normal.z);
+            } else {
+                throw new UnsupportedOperationException("Generic vertex format element");
             }
         }
     }
