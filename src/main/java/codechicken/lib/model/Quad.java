@@ -26,6 +26,7 @@ import codechicken.lib.vec.uv.UV;
 import net.minecraft.client.model.geom.builders.UVPair;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.AABB;
@@ -236,12 +237,12 @@ public class Quad {
                     colors.color(i)
             );
         }
-        tintIndex = quad.tintIndex();
+        tintIndex = quad.materialInfo().tintIndex();
         direction = quad.direction();
-        sprite = quad.sprite();
-        shade = quad.shade();
-        lightEmission = quad.lightEmission();
-        ambientOcclusion = quad.hasAmbientOcclusion();
+        sprite = quad.materialInfo().sprite();
+        shade = quad.materialInfo().shade();
+        lightEmission = quad.materialInfo().lightEmission();
+        ambientOcclusion = quad.materialInfo().ambientOcclusion();
         return this;
     }
 
@@ -279,11 +280,15 @@ public class Quad {
                 vertices[1].packUV(),
                 vertices[2].packUV(),
                 vertices[3].packUV(),
-                tintIndex,
                 requireNonNull(direction, "Direction not computed."),
-                requireNonNull(sprite, "Quad requires a sprite."),
-                shade,
-                lightEmission,
+                BakedQuad.MaterialInfo.of(
+                        new Material.Baked(requireNonNull(sprite, "Quad requires a sprite."), false),
+                        sprite.transparency(),
+                        tintIndex,
+                        shade,
+                        lightEmission,
+                        ambientOcclusion
+                ),
                 BakedNormals.of(
                         vertices[0].packNormal(),
                         vertices[1].packNormal(),
@@ -295,8 +300,7 @@ public class Quad {
                         vertices[1].color,
                         vertices[2].color,
                         vertices[3].color
-                ),
-                ambientOcclusion
+                )
         );
     }
 
