@@ -20,6 +20,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix3x2f;
 
 /**
  * An extension interface providing many various GUI rendering helpers.
@@ -321,7 +322,7 @@ public interface GuiGraphicsExtension {
     }
 
     default void cc$submitCustom(RenderPipeline pipeline, TextureSetup texture, double x0, double x1, double y0, double y1, CCCustomRenderState.VertBuilder builder) {
-        var pose = self().pose();
+        var pose = new Matrix3x2f(self().pose());
         var scissor = self().peekScissorStack();
         var bounds = BlitRenderState.getBounds((int) x0, (int) y0, (int) x1, (int) y1, pose, scissor);
         self().submitGuiElementRenderState(new CCCustomRenderState(
