@@ -3,7 +3,7 @@ package codechicken.lib.gui.modular.elements;
 import codechicken.lib.colour.Colour;
 import codechicken.lib.gui.modular.lib.BackgroundRender;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.DoubleSupplier;
@@ -70,7 +70,7 @@ public class GuiRectangle extends GuiElement<GuiRectangle> implements Background
     public static GuiRectangle toolTipBackground(GuiParent<?> parent, int backgroundColourTop, int backgroundColourBottom, int borderColourTop, int borderColourBottom) {
         return new GuiRectangle(parent) {
             @Override
-            public void renderBehind(GuiGraphics graphics, double mouseX, double mouseY, float partialTicks) {
+            public void renderBehind(GuiGraphicsExtractor graphics, double mouseX, double mouseY, float partialTicks) {
                 graphics.cc$tooltipBackground(xMin(), yMin(), xSize(), ySize(), backgroundColourTop, backgroundColourBottom, borderColourTop, borderColourBottom, false);
             }
         };
@@ -162,7 +162,7 @@ public class GuiRectangle extends GuiElement<GuiRectangle> implements Background
     }
 
     @Override
-    public void renderBehind(GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+    public void renderBehind(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
         if (shadeTopLeft != null && shadeBottomRight != null && shadeCorners != null) {
             render.cc$shadedRect(getRectangle(), getBorderWidth(), shadeTopLeft.getAsInt(), shadeBottomRight.getAsInt(), shadeCorners.getAsInt(), fill == null ? 0 : fill.getAsInt());
         } else if (border != null) {

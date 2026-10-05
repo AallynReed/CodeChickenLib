@@ -4,7 +4,7 @@ import codechicken.lib.raytracer.VoxelShapeBlockHitResult;
 import codechicken.lib.vec.Matrix4;
 import net.covers1624.quack.util.CrashLock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.state.BlockOutlineRenderState;
+import net.minecraft.client.renderer.state.level.BlockOutlineRenderState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.client.ClientHooks;

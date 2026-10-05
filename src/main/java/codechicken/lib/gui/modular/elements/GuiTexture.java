@@ -4,7 +4,7 @@ import codechicken.lib.gui.modular.lib.BackgroundRender;
 import codechicken.lib.gui.modular.lib.geometry.Borders;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import codechicken.lib.gui.modular.SpriteSupplier;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import org.jetbrains.annotations.Nullable;
 
@@ -104,7 +104,7 @@ public class GuiTexture extends GuiElement<GuiTexture> implements BackgroundRend
     }
 
     @Override
-    public void renderBehind(GuiGraphics graphics, double mouseX, double mouseY, float partialTicks) {
+    public void renderBehind(GuiGraphicsExtractor graphics, double mouseX, double mouseY, float partialTicks) {
         getSprite().ifPresent(sprite -> {
             if (dynamicBorders != null) {
                 graphics.cc$blitDynamicSprite(RenderPipelines.GUI_TEXTURED, sprite, getRectangle(), dynamicBorders, colour.get());

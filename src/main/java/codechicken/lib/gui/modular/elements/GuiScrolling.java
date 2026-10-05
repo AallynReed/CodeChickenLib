@@ -8,7 +8,7 @@ import codechicken.lib.gui.modular.lib.geometry.Constraint;
 import codechicken.lib.gui.modular.lib.geometry.GeoParam;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import codechicken.lib.math.MathHelper;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.jetbrains.annotations.Nullable;
 
 import static codechicken.lib.gui.modular.lib.geometry.Constraint.match;
@@ -152,7 +152,7 @@ public class GuiScrolling extends GuiElement<GuiScrolling> implements ContentEle
     //=== Rendering ===//
 
     @Override
-    protected boolean renderChild(GuiElement<?> child, GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+    protected boolean renderChild(GuiElement<?> child, GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
         boolean scissor = child == contentElement && enableScissor;
         if (scissor) render.cc$enableScissor(getRectangle());
         boolean ret = super.renderChild(child, render, mouseX, mouseY, partialTicks);

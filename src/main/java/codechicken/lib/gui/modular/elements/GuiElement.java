@@ -13,7 +13,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.covers1624.quack.util.SneakyUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +35,7 @@ import java.util.function.Supplier;
  * This is then used to properly layer elements and child elements when they are rendered.
  * <tr>- Switch everything over to the new RenderType system. (This is mostly handled behind the scenes. You don't need to mess with it when creating a GUI)
  * <tr>- Consolidate all the various rendering helper methods into one convenient utility class.
- * The new {@link GuiGraphics} system showed me a good way to implement this.
+ * The new {@link GuiGraphicsExtractor} system showed me a good way to implement this.
  * <tr>- Reduce the amount of ambiguity when building GUIs. (Whether I succeeded here is up for debate xD)
  * <tr>- Cut out a lot of random bloat that was never used in v2.
  * <p>
@@ -328,7 +328,7 @@ public class GuiElement<T extends GuiElement<T>> extends ConstrainedGeometry<T> 
      * @param mouseY       Current mouse Y position
      * @param partialTicks Partial render ticks
      */
-    public void render(GuiGraphics graphics, double mouseX, double mouseY, float partialTicks) {
+    public void render(GuiGraphicsExtractor graphics, double mouseX, double mouseY, float partialTicks) {
         applyQueuedChildUpdates();
         if (this instanceof BackgroundRender bgr) {
             bgr.renderBehind(graphics, mouseX, mouseY, partialTicks);
@@ -345,7 +345,7 @@ public class GuiElement<T extends GuiElement<T>> extends ConstrainedGeometry<T> 
         }
     }
 
-    protected boolean renderChild(GuiElement<?> child, GuiGraphics graphics, double mouseX, double mouseY, float partialTicks) {
+    protected boolean renderChild(GuiElement<?> child, GuiGraphicsExtractor graphics, double mouseX, double mouseY, float partialTicks) {
         if (renderCull != null && !renderCull.intersects(child.getRectangle())) return false;
         child.render(graphics, mouseX, mouseY, partialTicks);
         return true;
@@ -369,7 +369,7 @@ public class GuiElement<T extends GuiElement<T>> extends ConstrainedGeometry<T> 
      * @param consumed     Will be true if the overlay render call has already been consumed by another element.
      * @return true if the render call has been consumed.
      */
-    public boolean renderOverlay(GuiGraphics graphics, double mouseX, double mouseY, float partialTicks, boolean consumed) {
+    public boolean renderOverlay(GuiGraphicsExtractor graphics, double mouseX, double mouseY, float partialTicks, boolean consumed) {
         for (GuiElement<?> child : Lists.reverse(getChildren())) {
             if (child.isEnabled()) {
                 consumed |= child.renderOverlay(graphics, mouseX, mouseY, partialTicks, consumed);

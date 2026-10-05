@@ -69,7 +69,7 @@ public abstract class ContainerExtended extends AbstractContainerMenu {
     }
 
     @Override
-    public void clicked(int slot, int dragType, ClickType clickType, Player player) {
+    public void clicked(int slot, int dragType, ContainerInput clickType, Player player) {
         if (slot >= 0 && slot < slots.size()) {
             if (getSlot(slot) instanceof SlotHandleClicks handleClicks) {
                 handleClicks.slotClick(this, player, dragType, clickType);

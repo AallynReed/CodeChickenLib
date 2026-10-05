@@ -8,7 +8,7 @@
     "net/minecraft/client/renderer/OrderedSubmitNodeCollector": [
         'codechicken/lib/render/extension/CCOrderedSubmitNodeCollectorExtension'
     ],
-    "net/minecraft/client/gui/GuiGraphics": [
+    "net/minecraft/client/gui/GuiGraphicsExtractor": [
         'codechicken/lib/gui/render/GuiGraphicsExtension'
     ]
 }

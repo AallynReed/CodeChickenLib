@@ -4,7 +4,7 @@ import codechicken.lib.inventory.InventoryUtils;
 import codechicken.lib.util.ItemUtils;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.item.ItemStack;
 
 public class SlotDummy extends SlotHandleClicks {
@@ -21,9 +21,9 @@ public class SlotDummy extends SlotHandleClicks {
     }
 
     @Override
-    public void slotClick(ContainerExtended container, Player player, int button, ClickType clickType) {
+    public void slotClick(ContainerExtended container, Player player, int button, ContainerInput clickType) {
         ItemStack held = player.getInventory().player.containerMenu.getCarried();
-        boolean shift = clickType == ClickType.QUICK_MOVE;
+        boolean shift = clickType == ContainerInput.QUICK_MOVE;
         slotClick(held, button, shift);
     }
 

@@ -1,7 +1,7 @@
 package codechicken.lib.gui.modular.lib;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 /**
  * Allows a Gui Elements to render content behind child elements.
@@ -18,6 +18,6 @@ public interface BackgroundRender {
      *
      * @param render       Contains gui context information as well as essential render methods/utils including the PoseStack.
      */
-    void renderBehind(GuiGraphics render, double mouseX, double mouseY, float partialTicks);
+    void renderBehind(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks);
 
 }

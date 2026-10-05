@@ -11,7 +11,7 @@ import codechicken.lib.gui.modular.lib.geometry.GeoParam;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
@@ -206,9 +206,9 @@ public class ModularGui implements GuiParent<ModularGui> {
 
     /**
      * Primary render method for ModularGui. The screen implementing ModularGui must call this in its render method.
-     * Followed by the {@link #renderOverlay(GuiGraphics, float)} method to handle overlay rendering.
+     * Followed by the {@link #renderOverlay(GuiGraphicsExtractor, float)} method to handle overlay rendering.
      */
-    public void render(GuiGraphics graphics, float partialTicks) {
+    public void render(GuiGraphicsExtractor graphics, float partialTicks) {
         root.clearGeometryCache();
         double mouseX = computeMouseX();
         double mouseY = computeMouseY();
@@ -217,14 +217,14 @@ public class ModularGui implements GuiParent<ModularGui> {
 
     /**
      * Handles gui overlay rendering. This is where things like tool tips are rendered.
-     * This should be called immediately after {@link #render(GuiGraphics, float)}
+     * This should be called immediately after {@link #render(GuiGraphicsExtractor, float)}
      * <p>
-     * The reason this is split out from {@link #render(GuiGraphics, float)} is to allow
+     * The reason this is split out from {@link #render(GuiGraphicsExtractor, float)} is to allow
      * stack tool tips to override gui overlay rendering in {@link ModularGuiContainer}
      *
      * @return true if an overlay such as a tooltip is currently being drawn.
      */
-    public boolean renderOverlay(GuiGraphics graphics, float partialTicks) {
+    public boolean renderOverlay(GuiGraphicsExtractor graphics, float partialTicks) {
         double mouseX = computeMouseX();
         double mouseY = computeMouseY();
         return root.renderOverlay(graphics, mouseX, mouseY, partialTicks, false);

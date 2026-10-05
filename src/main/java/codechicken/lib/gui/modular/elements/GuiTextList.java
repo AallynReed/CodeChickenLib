@@ -6,7 +6,7 @@ import codechicken.lib.gui.modular.lib.geometry.GeoParam;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
@@ -143,7 +143,7 @@ public class GuiTextList extends GuiElement<GuiTextList> implements ForegroundRe
     }
 
     @Override
-    public void renderInFront(GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+    public void renderInFront(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
         List<? extends Component> list = getText();
         if (list.isEmpty()) return;
         Font font = Minecraft.getInstance().font;

@@ -5,7 +5,7 @@ import codechicken.lib.gui.modular.lib.*;
 import codechicken.lib.gui.modular.lib.geometry.Axis;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
@@ -186,7 +186,7 @@ public class GuiColourPicker extends GuiManipulable {
         }
 
         @Override
-        public void renderBehind(GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+        public void renderBehind(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
             render.cc$fill(xMin(), yMin(), xMin() + 1, yMax(), colour);
             render.cc$fill(xMax() - 1, yMin(), xMax(), yMax(), colour);
             render.cc$fill(xMin() + 1, yCenter() - 0.5, xMax() - 1, yCenter() + 0.5, colour);
@@ -209,7 +209,7 @@ public class GuiColourPicker extends GuiManipulable {
         }
 
         @Override
-        public void renderBehind(GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+        public void renderBehind(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
             render.cc$enableScissor(xMin(), yMin(), xSize(), ySize());
             for (int x = 0; xMin() + (x * 2) < xMax(); x++) {
                 for (int y = 0; yMin() + (y * 2) < yMax(); y++) {

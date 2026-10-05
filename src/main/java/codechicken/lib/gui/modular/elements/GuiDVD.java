@@ -5,7 +5,7 @@ import codechicken.lib.math.MathHelper;
 import codechicken.lib.gui.modular.lib.geometry.Constraint;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import codechicken.lib.gui.modular.lib.geometry.Rectangle;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.joml.Vector2d;
 import org.jspecify.annotations.Nullable;
 
@@ -64,7 +64,7 @@ public class GuiDVD extends GuiElement<GuiDVD> implements ContentElement<GuiElem
     }
 
     @Override
-    public void render(GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+    public void render(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
         super.render(render, mouseX, mouseY, partialTicks);
         if (velocity == null) return;
 

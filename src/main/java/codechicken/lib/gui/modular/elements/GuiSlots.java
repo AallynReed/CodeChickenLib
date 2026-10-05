@@ -10,7 +10,7 @@ import codechicken.lib.gui.modular.lib.geometry.Position;
 import codechicken.lib.gui.modular.SpriteSupplier;
 import codechicken.lib.math.MathHelper;
 import net.covers1624.quack.collection.FastStream;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.data.AtlasIds;
 import net.minecraft.resources.Identifier;
@@ -53,7 +53,7 @@ public class GuiSlots extends GuiElement<GuiSlots> implements BackgroundRender {
     private Function<Slot, SpriteSupplier> slotTexture = slot -> SpriteSupplier.gui(Identifier.fromNamespaceAndPath(MOD_ID, "widgets/slot"));
     private Function<Slot, SpriteSupplier> slotIcons = slot -> SpriteSupplier.EMPTY;
     private Function<Slot, Integer> highlightColour = slot -> 0x80ffffff;
-    private @Nullable TriConsumer<Slot, Position, GuiGraphics> slotOverlay = null;
+    private @Nullable TriConsumer<Slot, Position, GuiGraphicsExtractor> slotOverlay = null;
     private int xSlotSpacing = 0;
     private int ySlotSpacing = 0;
 
@@ -278,7 +278,7 @@ public class GuiSlots extends GuiElement<GuiSlots> implements BackgroundRender {
      *
      * @param slotOverlay Render callback providing the slot, screen position of the slot (top-left corner) and the active GuiRender.
      */
-    public GuiSlots setSlotOverlay(TriConsumer<Slot, Position, GuiGraphics> slotOverlay) {
+    public GuiSlots setSlotOverlay(TriConsumer<Slot, Position, GuiGraphicsExtractor> slotOverlay) {
         this.slotOverlay = slotOverlay;
         return this;
     }
@@ -291,7 +291,7 @@ public class GuiSlots extends GuiElement<GuiSlots> implements BackgroundRender {
      *
      * @param slotOverlay Render callback providing the slot, screen position of the slot (top-left corner) and the active GuiRender.
      */
-    public GuiSlots setSlotOverlayI(TriConsumer<Integer, Position, GuiGraphics> slotOverlay) {
+    public GuiSlots setSlotOverlayI(TriConsumer<Integer, Position, GuiGraphicsExtractor> slotOverlay) {
         this.slotOverlay = (slot, position, render) -> slotOverlay.accept(slots.indexOf(slot) - firstSlot, position, render);
         return this;
     }
@@ -337,7 +337,7 @@ public class GuiSlots extends GuiElement<GuiSlots> implements BackgroundRender {
     }
 
     @Override
-    public void renderBehind(GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+    public void renderBehind(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
         GuiElement<?> root = getModularGui().getRoot();
         updateSlots(root);
 

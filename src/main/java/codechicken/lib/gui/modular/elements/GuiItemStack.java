@@ -3,7 +3,7 @@ package codechicken.lib.gui.modular.elements;
 import codechicken.lib.gui.modular.lib.BackgroundRender;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
@@ -93,7 +93,7 @@ public class GuiItemStack extends GuiElement<GuiItemStack> implements Background
     }
 
     @Override
-    public void renderBehind(GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+    public void renderBehind(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
         ItemStack stack = this.stack.get();
         if (stack.isEmpty()) return;
 
@@ -105,7 +105,7 @@ public class GuiItemStack extends GuiElement<GuiItemStack> implements Background
     }
 
     @Override
-    public boolean renderOverlay(GuiGraphics graphics, double mouseX, double mouseY, float partialTicks, boolean consumed) {
+    public boolean renderOverlay(GuiGraphicsExtractor graphics, double mouseX, double mouseY, float partialTicks, boolean consumed) {
         if (super.renderOverlay(graphics, mouseX, mouseY, partialTicks, consumed)) return true;
         var stack = this.stack.get();
         if (isMouseOver() && !stack.isEmpty() && toolTip.get()) {

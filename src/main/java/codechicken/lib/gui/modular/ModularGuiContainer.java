@@ -7,7 +7,7 @@ import codechicken.lib.gui.modular.lib.geometry.GeoParam;
 import net.minecraft.ChatFormatting;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
@@ -17,7 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -91,7 +91,7 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
         }
     }
 
-    private void renderModularGui(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    private void renderModularGui(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
         modularGui.render(graphics, partialTicks);
     }
 
@@ -114,7 +114,7 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
         super.renderSnapbackItem(guiGraphics);
     }
 
-    protected boolean handleFloatingItemRender(GuiGraphics graphics, int mouseX, int mouseY) {
+    protected boolean handleFloatingItemRender(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         if (modularGui.vanillaSlotRendering()) return false;
         boolean ret = false;
 
@@ -150,7 +150,7 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
         return ret;
     }
 
-    protected boolean renderHoveredStackToolTip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    protected boolean renderHoveredStackToolTip(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         if (this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem() && showTooltipWithItemInHand(hoveredSlot.getItem())) {
             GuiElement<?> handler = modularGui.getSlotHandler(hoveredSlot);
             if (handler != null && (handler.blockMouseOver(handler, mouseX, mouseY) || !handler.isMouseOver())) {
@@ -236,7 +236,7 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
 
     //Modular gui friendly version of the slot render
     @Override
-    public void doRenderSlot(GuiGraphics graphics, Slot slot) {
+    public void doRenderSlot(GuiGraphicsExtractor graphics, Slot slot) {
         if (modularGui.vanillaSlotRendering()) return;
         int slotX = slot.x + leftPos;
         int slotY = slot.y + topPos;
@@ -310,7 +310,7 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
     }
 
     @Override
-    protected void slotClicked(Slot slot, int i, int j, ClickType clickType) {
+    protected void slotClicked(Slot slot, int i, int j, ContainerInput clickType) {
         if (slot != null) {
             GuiElement<?> handler = modularGui.getSlotHandler(slot);
             if (handler != null && !handler.isEnabled()) return;

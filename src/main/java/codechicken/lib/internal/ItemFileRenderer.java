@@ -11,7 +11,7 @@ import net.covers1624.quack.image.AnimatedGifEncoder;
 import net.covers1624.quack.io.IOUtils;
 import net.covers1624.quack.platform.OperatingSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -3,7 +3,7 @@ package codechicken.lib.gui.modular.elements;
 import codechicken.lib.gui.modular.lib.SliderState;
 import codechicken.lib.gui.modular.lib.geometry.*;
 import codechicken.lib.math.MathHelper;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 
 import java.util.*;
@@ -224,7 +224,7 @@ public class GuiList<E> extends GuiElement<GuiList<E>> {
     }
 
     @Override
-    public void render(GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+    public void render(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
         if (enableScissor) render.cc$enableScissor(getRectangle());
         super.render(render, mouseX, mouseY, partialTicks);
         if (enableScissor) render.cc$disableScissor();

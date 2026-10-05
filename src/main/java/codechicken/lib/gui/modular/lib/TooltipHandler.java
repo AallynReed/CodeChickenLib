@@ -4,7 +4,7 @@ import codechicken.lib.gui.modular.elements.GuiElement;
 import net.covers1624.quack.collection.FastStream;
 import net.covers1624.quack.util.SneakyUtils;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
 import net.minecraft.locale.Language;
@@ -98,9 +98,9 @@ public interface TooltipHandler<T extends TooltipHandler<T>> {
 
     /**
      * The method responsible for rendering element tool tips.
-     * Called from {@link GuiElement#renderOverlay(GuiGraphics, double, double, float, boolean)}
+     * Called from {@link GuiElement#renderOverlay(GuiGraphicsExtractor, double, double, float, boolean)}
      */
-    default boolean renderTooltip(GuiGraphics graphics, Font font, double mouseX, double mouseY) {
+    default boolean renderTooltip(GuiGraphicsExtractor graphics, Font font, double mouseX, double mouseY) {
         Supplier<List<Component>> supplier = getTooltip();
         if (supplier == null) return false;
         List<Component> list = supplier.get();

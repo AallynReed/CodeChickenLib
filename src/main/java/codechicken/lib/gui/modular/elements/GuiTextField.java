@@ -7,7 +7,7 @@ import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -601,7 +601,7 @@ public class GuiTextField extends GuiElement<GuiTextField> implements Background
     }
 
     @Override
-    public void renderBehind(GuiGraphics render, double mouseX, double mouseY, float partialTicks) {
+    public void renderBehind(GuiGraphicsExtractor render, double mouseX, double mouseY, float partialTicks) {
         var font = Minecraft.getInstance().font;
         String value = getValue();
         int colour = textColor.get();

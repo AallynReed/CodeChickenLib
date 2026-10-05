@@ -6,7 +6,7 @@ import codechicken.lib.gui.modular.lib.geometry.Direction;
 import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import codechicken.lib.gui.modular.SpriteSupplier;
 import codechicken.lib.math.MathHelper;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 
 import java.util.function.Supplier;
@@ -100,7 +100,7 @@ public class GuiProgressIcon extends GuiElement<GuiProgressIcon> implements Back
     }
 
     @Override
-    public void renderBehind(GuiGraphics graphics, double mouseX, double mouseY, float partialTicks) {
+    public void renderBehind(GuiGraphicsExtractor graphics, double mouseX, double mouseY, float partialTicks) {
         if (rotateToDirection) {
             graphics.pose().pushMatrix();
 

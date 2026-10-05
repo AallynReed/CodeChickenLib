@@ -7,7 +7,7 @@ import codechicken.lib.gui.modular.lib.geometry.GuiParent;
 import codechicken.lib.gui.modular.lib.geometry.Position;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
@@ -208,7 +208,7 @@ public class GuiText extends GuiElement<GuiText> implements ForegroundRender {
     }
 
     @Override
-    public void renderInFront(GuiGraphics graphics, double mouseX, double mouseY, float partialTicks) {
+    public void renderInFront(GuiGraphicsExtractor graphics, double mouseX, double mouseY, float partialTicks) {
         Component component = getText();
         if (component == null) return;
         Font font = Minecraft.getInstance().font;
