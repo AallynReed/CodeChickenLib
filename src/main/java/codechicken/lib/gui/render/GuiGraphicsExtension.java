@@ -46,7 +46,7 @@ public interface GuiGraphicsExtension {
     }
 
     default void cc$fillGradientV(double xMin, double yMin, double xMax, double yMax, int col1, int col2) {
-        cc$fillGradient(xMin, yMin, xMax, yMax, col1, col2, true);
+        cc$fillGradient(xMin, yMin, xMax, yMax, col1, col2, false);
     }
 
     default void cc$fill(Rectangle rect, int color) {
@@ -111,8 +111,8 @@ public interface GuiGraphicsExtension {
                         x0, x1,
                         y0, y1,
                         border,
-                        fillColor,
-                        borderColor
+                        borderColor,
+                        fillColor
                 )
         );
     }

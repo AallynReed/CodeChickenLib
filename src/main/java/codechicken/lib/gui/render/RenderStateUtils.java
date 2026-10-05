@@ -29,17 +29,17 @@ public class RenderStateUtils {
     }
 
     public static void fillGradientH(VertexConsumer consumer, Matrix3x2f pose, double x0, double x1, double y0, double y1, int col1, int col2) {
-        consumer.addVertexWith2DPose(pose, (float) x1, (float) y1).setColor(col1);
-        consumer.addVertexWith2DPose(pose, (float) x0, (float) y0).setColor(col1);
+        consumer.addVertexWith2DPose(pose, (float) x1, (float) y1).setColor(col2);
         consumer.addVertexWith2DPose(pose, (float) x1, (float) y0).setColor(col2);
-        consumer.addVertexWith2DPose(pose, (float) x0, (float) y1).setColor(col2);
+        consumer.addVertexWith2DPose(pose, (float) x0, (float) y0).setColor(col1);
+        consumer.addVertexWith2DPose(pose, (float) x0, (float) y1).setColor(col1);
     }
 
     public static void fillGradientV(VertexConsumer consumer, Matrix3x2f pose, double x0, double x1, double y0, double y1, int col1, int col2) {
-        consumer.addVertexWith2DPose(pose, (float) x1, (float) y1).setColor(col1);
-        consumer.addVertexWith2DPose(pose, (float) x0, (float) y0).setColor(col2);
-        consumer.addVertexWith2DPose(pose, (float) x1, (float) y0).setColor(col2);
-        consumer.addVertexWith2DPose(pose, (float) x0, (float) y1).setColor(col1);
+        consumer.addVertexWith2DPose(pose, (float) x1, (float) y1).setColor(col2);
+        consumer.addVertexWith2DPose(pose, (float) x1, (float) y0).setColor(col1);
+        consumer.addVertexWith2DPose(pose, (float) x0, (float) y0).setColor(col1);
+        consumer.addVertexWith2DPose(pose, (float) x0, (float) y1).setColor(col2);
     }
 
     public static void borderFill(VertexConsumer consumer, Matrix3x2f pose, double x0, double x1, double y0, double y1, double border, int borderColor, int fillColor) {
@@ -57,7 +57,7 @@ public class RenderStateUtils {
     public static void shadedFill(VertexConsumer consumer, Matrix3x2f pose, double x0, double x1, double y0, double y1, double border, int topLeftColor, int bottomRightColor, int cornerMixColor, int fillColor) {
         fill(consumer, pose, x0, y0, x1 - border, y0 + border, topLeftColor);                     //Top
         fill(consumer, pose, x0, y0 + border, x0 + border, y1 - border, topLeftColor);            //Left
-        fill(consumer, pose, x0 + border, -border, x1, y1, bottomRightColor);                   //Bottom
+        fill(consumer, pose, x0 + border, y1 - border, x1, y1, bottomRightColor);               //Bottom
         fill(consumer, pose, x1 - border, y0 + border, x1, y1 - border, bottomRightColor);        //Right
         fill(consumer, pose, x1 - border, y0, x1, y0 + border, cornerMixColor);                   //Top Right Corner
         fill(consumer, pose, x0, y1 - border, x0 + border, y1, cornerMixColor);                   //Bottom Left Corner
