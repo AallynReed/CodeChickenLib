@@ -3,6 +3,7 @@ package codechicken.lib.internal;
 import codechicken.lib.CodeChickenLib;
 import codechicken.lib.config.ConfigCategory;
 import codechicken.lib.gui.modular.lib.CursorHelper;
+import codechicken.lib.model.ClassModelLoader;
 import codechicken.lib.render.CCRenderEventHandler;
 import codechicken.lib.render.CCRenderPipelines;
 import net.covers1624.quack.util.CrashLock;
@@ -10,6 +11,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
 import net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent;
 
 import static codechicken.lib.CodeChickenLib.MOD_ID;
@@ -30,6 +32,7 @@ public class ClientInit {
 
         modBus.addListener(ClientInit::onResourceReload);
         modBus.addListener(ClientInit::onRegisterPipelines);
+        modBus.addListener(ClientInit::onRegisterItemModels);
     }
 
     private static void loadClientConfig() {
@@ -45,6 +48,10 @@ public class ClientInit {
 
     private static void onResourceReload(AddClientReloadListenersEvent event) {
         event.addListener(Identifier.fromNamespaceAndPath(MOD_ID, "cursor_helper"), (ResourceManagerReloadListener) e -> CursorHelper.onResourceReload());
+    }
+
+    private static void onRegisterItemModels(RegisterItemModelsEvent event) {
+        event.register(Identifier.fromNamespaceAndPath(MOD_ID, "class"), ClassModelLoader.Unbaked.MAP_CODEC);
     }
 
     private static void onRegisterPipelines(RegisterRenderPipelinesEvent event) {

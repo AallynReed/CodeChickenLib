@@ -3,15 +3,20 @@ package codechicken.lib.texture;
 import codechicken.lib.colour.Colour;
 import codechicken.lib.colour.ColourARGB;
 import codechicken.lib.util.ResourceUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.data.AtlasIds;
 import net.minecraft.resources.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import javax.imageio.ImageIO;
 
 public class TextureUtils {
 
@@ -30,6 +35,14 @@ public class TextureUtils {
         int[] data = new int[w * h];
         img.getRGB(0, 0, w, h, data, 0, w);
         return data;
+    }
+
+    public static TextureAtlas getTextureMap() {
+        return Minecraft.getInstance().getAtlasManager().getAtlasOrThrow(AtlasIds.BLOCKS);
+    }
+
+    public static TextureAtlasSprite getMissingSprite() {
+        return getTextureMap().getSprite(MissingTextureAtlasSprite.getLocation());
     }
 
     public static Colour[] loadTextureColours(Identifier resource) {
