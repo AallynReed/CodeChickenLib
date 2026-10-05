@@ -20,9 +20,9 @@ public class CustomParticleHandler {
     public static void addBlockHitEffects(Level world, Cuboid6 bounds, Direction side, TextureAtlasSprite icon, ParticleEngine particleManager) {
         float border = 0.1F;
         Vector3 diff = bounds.max.copy().subtract(bounds.min).add(-2 * border);
-        diff.x *= world.random.nextDouble();
-        diff.y *= world.random.nextDouble();
-        diff.z *= world.random.nextDouble();
+        diff.x *= world.getRandom().nextDouble();
+        diff.y *= world.getRandom().nextDouble();
+        diff.z *= world.getRandom().nextDouble();
         Vector3 pos = diff.add(bounds.min).add(border);
 
         if (side == Direction.DOWN) {
@@ -58,7 +58,7 @@ public class CustomParticleHandler {
                     double x = bounds.min.x + (i + 0.5) * diff.x / density.x;
                     double y = bounds.min.y + (j + 0.5) * diff.y / density.y;
                     double z = bounds.min.z + (k + 0.5) * diff.z / density.z;
-                    particleManager.add(new CustomBreakingParticle((ClientLevel) world, x, y, z, x - center.x, y - center.y, z - center.z, icons.get(world.random.nextInt(icons.size()))));
+                    particleManager.add(new CustomBreakingParticle((ClientLevel) world, x, y, z, x - center.x, y - center.y, z - center.z, icons.get(world.getRandom().nextInt(icons.size()))));
                 }
             }
         }
@@ -69,18 +69,18 @@ public class CustomParticleHandler {
 
         ParticleEngine manager = Minecraft.getInstance().particleEngine;
         for (int i = 0; i < particleCount; i++) {
-            double mX = level.random.nextGaussian() * 0.15F;
-            double mY = level.random.nextGaussian() * 0.15F;
-            double mZ = level.random.nextGaussian() * 0.15F;
+            double mX = level.getRandom().nextGaussian() * 0.15F;
+            double mY = level.getRandom().nextGaussian() * 0.15F;
+            double mZ = level.getRandom().nextGaussian() * 0.15F;
             manager.add(CustomBreakingParticle.newLandingParticle((ClientLevel) level, entity.x, entity.y, entity.z, mX, mY, mZ, sprite));
         }
     }
 
     public static void addRunningEffects(Level level, Entity entity, TextureAtlasSprite sprite) {
         ParticleEngine manager = Minecraft.getInstance().particleEngine;
-        double x = entity.getX() + (level.random.nextFloat() - 0.5D) * entity.getBbWidth();
+        double x = entity.getX() + (level.getRandom().nextFloat() - 0.5D) * entity.getBbWidth();
         double y = entity.getBoundingBox().minY + 0.1D;
-        double z = entity.getZ() + (level.random.nextFloat() - 0.5D) * entity.getBbWidth();
+        double z = entity.getZ() + (level.getRandom().nextFloat() - 0.5D) * entity.getBbWidth();
         manager.add(new CustomBreakingParticle(
                 (ClientLevel) level,
                 x, y, z,

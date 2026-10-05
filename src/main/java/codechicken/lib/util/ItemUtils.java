@@ -50,7 +50,7 @@ public class ItemUtils {
      */
     public static void dropItem(ItemStack stack, Level level, Vector3 dropLocation) {
         ItemEntity item = new ItemEntity(level, dropLocation.x, dropLocation.y, dropLocation.z, stack);
-        item.setDeltaMovement(level.random.nextGaussian() * 0.05, level.random.nextGaussian() * 0.05 + 0.2F, level.random.nextGaussian() * 0.05);
+        item.setDeltaMovement(level.getRandom().nextGaussian() * 0.05, level.getRandom().nextGaussian() * 0.05 + 0.2F, level.getRandom().nextGaussian() * 0.05);
         level.addFreshEntity(item);
     }
 
@@ -63,9 +63,9 @@ public class ItemUtils {
      * @param velocity The velocity to add.
      */
     public static void dropItem(Level world, BlockPos pos, ItemStack stack, double velocity) {
-        double xVelocity = world.random.nextFloat() * velocity + (1.0D - velocity) * 0.5D;
-        double yVelocity = world.random.nextFloat() * velocity + (1.0D - velocity) * 0.5D;
-        double zVelocity = world.random.nextFloat() * velocity + (1.0D - velocity) * 0.5D;
+        double xVelocity = world.getRandom().nextFloat() * velocity + (1.0D - velocity) * 0.5D;
+        double yVelocity = world.getRandom().nextFloat() * velocity + (1.0D - velocity) * 0.5D;
+        double zVelocity = world.getRandom().nextFloat() * velocity + (1.0D - velocity) * 0.5D;
         ItemEntity entityItem = new ItemEntity(world, pos.getX() + xVelocity, pos.getY() + yVelocity, pos.getZ() + zVelocity, stack);
         entityItem.setPickUpDelay(10);
         world.addFreshEntity(entityItem);
