@@ -52,7 +52,7 @@ public class HighlightHandler {
         NeoForge.EVENT_BUS.addListener(HighlightHandler::renderLevelLast);
     }
 
-    private static void renderLevelLast(RenderLevelStageEvent.AfterParticles event) {
+    private static void renderLevelLast(RenderLevelStageEvent.AfterTranslucentParticles event) {
         if (highlight != null) {
             MultiBufferSource.BufferSource source = Minecraft.getInstance().renderBuffers().bufferSource();
             Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
