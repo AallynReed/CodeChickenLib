@@ -63,9 +63,9 @@ public class ModularGuiScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
         if (modularGui.renderBackground()) {
-            renderBackground(graphics, mouseX, mouseY, partialTicks);
+            extractBackground(graphics, mouseX, mouseY, partialTicks);
         }
         modularGui.render(graphics, partialTicks);
         // TODO do we render atop JEI? Whats the event ordering here?

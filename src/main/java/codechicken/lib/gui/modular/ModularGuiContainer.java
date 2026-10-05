@@ -77,14 +77,14 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
         GuiElement<?> root = modularGui.getRoot();
         topPos = (int) root.getValue(GeoParam.TOP);
         leftPos = (int) root.getValue(GeoParam.LEFT);
         imageWidth = (int) root.getValue(GeoParam.WIDTH);
         imageHeight = (int) root.getValue(GeoParam.HEIGHT);
 
-        super.render(graphics, mouseX, mouseY, partialTicks);
+        super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
         if (!handleFloatingItemRender(graphics, mouseX, mouseY) && !renderHoveredStackToolTip(graphics, mouseX, mouseY)) {
             modularGui.renderOverlay(graphics, partialTicks);
@@ -96,22 +96,22 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
     }
 
     @Override
-    public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         if (modularGui.renderBackground()) {
-            super.renderBackground(graphics, mouseX, mouseY, partialTick);
+            super.extractBackground(graphics, mouseX, mouseY, partialTick);
         }
     }
 
     @Override
-    public void renderCarriedItem(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    public void extractCarriedItem(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
         if (modularGui.vanillaSlotRendering()) return;
-        super.renderCarriedItem(guiGraphics, mouseX, mouseY);
+        super.extractCarriedItem(guiGraphics, mouseX, mouseY);
     }
 
     @Override
-    public void renderSnapbackItem(GuiGraphics guiGraphics) {
+    public void extractSnapbackItem(GuiGraphicsExtractor guiGraphics) {
         if (modularGui.vanillaSlotRendering()) return;
-        super.renderSnapbackItem(guiGraphics);
+        super.extractSnapbackItem(guiGraphics);
     }
 
     protected boolean handleFloatingItemRender(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
@@ -130,7 +130,7 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
                     countOverride = ChatFormatting.YELLOW + "0";
                 }
             }
-            renderFloatingItem(graphics, stack, mouseX - 8, mouseY - yOffset, countOverride);
+            extractFloatingItem(graphics, stack, mouseX - 8, mouseY - yOffset, countOverride);
             ret = modularGui.doesFloatingItemDisableToolTips();
         }
 
@@ -140,7 +140,7 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
             int yDist = snapbackData.end().y - snapbackData.start().y;
             int xPos = snapbackData.start().x + (int) ((float) xDist * anim);
             int yPos = snapbackData.start().y + (int) ((float) yDist * anim);
-            renderFloatingItem(graphics, snapbackData.item(), xPos + leftPos, yPos + topPos, null);
+            extractFloatingItem(graphics, snapbackData.item(), xPos + leftPos, yPos + topPos, null);
             if (anim >= 1.0F) {
                 this.snapbackData = null;
             }
@@ -222,13 +222,9 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
     //=== AbstractContainerMenu Overrides ===//
 
     @Override
-    protected void renderBg(GuiGraphics guiGraphics, float f, int i, int j) {
-    }
-
-    @Override
-    protected void renderSlot(GuiGraphics guiGraphics, Slot slot, int mouseX, int mouseY) {
+    protected void extractSlot(GuiGraphicsExtractor guiGraphics, Slot slot, int mouseX, int mouseY) {
         if (modularGui.vanillaSlotRendering()) {
-            super.renderSlot(guiGraphics, slot, mouseX, mouseY);
+            super.extractSlot(guiGraphics, slot, mouseX, mouseY);
         } else {
             renderingSlots = true;
         }
@@ -257,7 +253,7 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
                 dragingToSlot = true;
                 int k = Math.min(carriedStack.getMaxStackSize(), slot.getMaxStackSize(carriedStack));
                 int l = slot.getItem().isEmpty() ? 0 : slot.getItem().getCount();
-                int m = AbstractContainerMenu.getQuickCraftPlaceCount(this.quickCraftSlots, this.quickCraftingType, carriedStack) + l;
+                int m = AbstractContainerMenu.getQuickCraftPlaceCount(this.quickCraftSlots.size(), this.quickCraftingType, carriedStack) + l;
                 if (m > k) {
                     m = k;
                     countString = ChatFormatting.YELLOW.toString() + k;
@@ -292,8 +288,12 @@ public class ModularGuiContainer<T extends AbstractContainerMenu> extends Abstra
     }
 
     @Override //Disable vanilla title and inventory name rendering
-    protected void renderLabels(GuiGraphics guiGraphics, int i, int j) {
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int i, int j) {
         renderingSlots = false;
+    }
+
+    @Override
+    protected void extractTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
     }
 
     @Nullable
