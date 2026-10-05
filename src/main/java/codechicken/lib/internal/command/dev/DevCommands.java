@@ -6,7 +6,6 @@ import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.gamerules.GameRules;
 
 import static net.minecraft.commands.Commands.literal;
@@ -28,11 +27,8 @@ public class DevCommands {
     private static int setupWorld(CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack source = ctx.getSource();
         MinecraftServer server = source.getServer();
-        GameRules gameRules = server.getWorldData().getGameRules();
-
-        for (ServerLevel level : server.getAllLevels()) {
-            level.setWeatherParameters(6000, 0, false, false);
-        }
+        GameRules gameRules = server.getGameRules();
+        server.setWeatherParameters(6000, 0, false, false);
 
         gameRules.set(GameRules.ADVANCE_TIME, false, server);
         gameRules.set(GameRules.ADVANCE_WEATHER, false, server);
