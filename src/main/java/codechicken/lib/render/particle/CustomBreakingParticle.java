@@ -28,7 +28,7 @@ public class CustomBreakingParticle extends SingleQuadParticle {
 
     @Override
     protected Layer getLayer() {
-        return Layer.TERRAIN;
+        return Layer.bySprite(sprite);
     }
 
     protected float getU0() {
